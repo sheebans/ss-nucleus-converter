@@ -2,7 +2,7 @@
 Nucleus converter
 ==================
 
- Nucleus converter has the implementation of one document type to other type of document like html to pdf etc. All the nucleus related conversion logic should be handle in this project. It contain one HTTP server and that way they qualify as another cluster in nucleus infrastructure.
+ Nucleus converter component should have all the nucleus related conversion impelemention. It contain one HTTP server and that way they qualify as another cluster in nucleus infrastructure.
  
 Supported features
 ----------------
