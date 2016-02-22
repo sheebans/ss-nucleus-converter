@@ -8,7 +8,7 @@ public class HelperConstants {
   public static final String HYPEN = "-";
   public static final String HTML = "html";
   public static final String FILENAME = "filename";
-  public static final String URL = "url";
+  public static final String LOCATION = "Location";
   public static final String STUDENT_DATA = "Student Data";
   public static final String TABLE = "table";
   public static final String TR = "tr";

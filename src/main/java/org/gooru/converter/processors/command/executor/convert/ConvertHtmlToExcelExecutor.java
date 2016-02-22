@@ -81,8 +81,7 @@ class ConvertHtmlToExcelExecutor implements Executor {
     if (!isUploaded) {
       ServerValidatorUtility.throwASInternalServerError(ServerValidatorUtility.generateMessage(MessageCodeConstants.CVT005));
     }
-    JsonObject response = new JsonObject().put(HelperConstants.URL, configRegistry.getReportCdnUrl() + filename + HelperConstants.FILE_EX_XLSX);
-    return new MessageResponse.Builder().setResponseBody(response).setContentTypeJson().setStatusOkay().successful().build();
+    return new MessageResponse.Builder().setHeader(HelperConstants.LOCATION, configRegistry.getReportCdnUrl() + filename + HelperConstants.FILE_EX_XLSX).setContentTypeJson().setStatusCreated().successful().build();
   }
 
   private String convertHtmlToExcel(String htmlContent, String filePath) {
