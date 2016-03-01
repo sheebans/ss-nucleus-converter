@@ -11,6 +11,7 @@ import org.gooru.converter.bootstrap.shutdown.Finalizers;
 import org.gooru.converter.bootstrap.startup.Initializer;
 import org.gooru.converter.bootstrap.startup.Initializers;
 import org.gooru.converter.constants.MessageConstants;
+import org.gooru.converter.constants.MessagebusEndpoints;
 import org.gooru.converter.infra.RedisClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ public class AuthVerticle extends AbstractVerticle {
       }
     });
     EventBus eb = vertx.eventBus();
-    eb.consumer("org.gooru.converter.message.bus.auth", message -> {
+    eb.localConsumer(MessagebusEndpoints.MBEP_AUTH, message -> {
       LOG.debug("Received message: " + message.body());
       vertx.executeBlocking(future -> {
         JsonObject result = getAccessToken(message.headers().get(MessageConstants.MSG_HEADER_TOKEN));
