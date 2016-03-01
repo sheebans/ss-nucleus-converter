@@ -30,27 +30,20 @@ class RouteConverterConfigurator implements RouteConfigurator {
     mbusTimeout = config.getLong(ConfigConstants.MBUS_TIMEOUT, RouteConstants.DEFAULT_TIMEOUT);
     router.post(RouteConstants.EP_NUCLUES_CONVERTER_HTML_TO_PDF).handler(this::convertHtmlToPdf);
     router.post(RouteConstants.EP_NUCLUES_CONVERTER_HTML_TO_EXCEL).handler(this::convertHtmlToExcel);
-    router.post(RouteConstants.EP_NUCLUES_CONVERTER_DOC_TO_PDF).handler(this::convertDocToPdf);
   }
 
   private void convertHtmlToPdf(RoutingContext routingContext) {
     final DeliveryOptions options =
-        new DeliveryOptions().setSendTimeout(mbusTimeout).addHeader(MessageConstants.MSG_HEADER_OP, CommandConstants.CONVERT_HTML_TO_PDF);
+        new DeliveryOptions().setSendTimeout(mbusTimeout).addHeader(MessageConstants.MSG_HEADER_OP, CommandConstants.CONVERTER_HTML_TO_PDF_CONVERT);
     eb.send(MessagebusEndpoints.MBEP_CONVERTER, RouteRequestUtility.getBodyForMessage(routingContext), options,
         reply -> RouteResponseUtility.responseHandler(routingContext, reply, LOG));
   }
 
   private void convertHtmlToExcel(RoutingContext routingContext) {
     final DeliveryOptions options =
-        new DeliveryOptions().setSendTimeout(mbusTimeout).addHeader(MessageConstants.MSG_HEADER_OP, CommandConstants.CONVERT_HTML_TO_EXCEL);
+        new DeliveryOptions().setSendTimeout(mbusTimeout).addHeader(MessageConstants.MSG_HEADER_OP, CommandConstants.CONVERTER_HTML_TO_EXCEL_CONVERT);
     eb.send(MessagebusEndpoints.MBEP_CONVERTER, RouteRequestUtility.getBodyForMessage(routingContext), options,
         reply -> RouteResponseUtility.responseHandler(routingContext, reply, LOG));
   }
 
-  private void convertDocToPdf(RoutingContext routingContext) {
-    final DeliveryOptions options =
-        new DeliveryOptions().setSendTimeout(mbusTimeout).addHeader(MessageConstants.MSG_HEADER_OP, CommandConstants.CONVERT_DOC_TO_PDF);
-    eb.send(MessagebusEndpoints.MBEP_CONVERTER, RouteRequestUtility.getBodyForMessage(routingContext), options,
-        reply -> RouteResponseUtility.responseHandler(routingContext, reply, LOG));
-  }
 }

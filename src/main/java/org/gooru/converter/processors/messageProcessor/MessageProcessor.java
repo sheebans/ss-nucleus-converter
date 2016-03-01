@@ -30,10 +30,10 @@ public class MessageProcessor implements Processor {
       }
       MessageContext messageContext = new MessageContextHolder(message);
       switch (messageContext.command()) {
-      case CommandConstants.CONVERT_HTML_TO_EXCEL:
+      case CommandConstants.CONVERTER_HTML_TO_EXCEL_CONVERT:
         result = ConvertExecutorFactory.ConvertHtmlToExcelExecutor().execute(messageContext);
         break;
-      case CommandConstants.CONVERT_HTML_TO_PDF:
+      case CommandConstants.CONVERTER_HTML_TO_PDF_CONVERT:
         result = ConvertExecutorFactory.ConvertHtmlToPdfExecutor().execute(messageContext);
         break;
       default:
