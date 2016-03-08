@@ -37,7 +37,7 @@ Authorization: Token MTQ1NTc5OTI3NDU0Mzphbm9ueW1vdXM6YmE5NTZhOTctYWUxNS0xMWU1LWE
 ** Location Header **
 
 ```
-
+    Location: //test-content-bucket01.s3-us-west-1.amazonaws.com/helloworld.pdf
 ```
 
 **CURL snippet**
