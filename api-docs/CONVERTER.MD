@@ -47,7 +47,7 @@ Authorization: Token MTQ1NTc5OTI3NDU0Mzphbm9ueW1vdXM6YmE5NTZhOTctYWUxNS0xMWU1LWE
 curl -i  -H "Content-Type: application/json" -H "Authorization: Token MTQ1NTc5OTI3NDU0Mzphbm9ueW1vdXM6YmE5NTZhOTctYWUxNS0xMWU1LWEzMDItZjhhOTYzMDY1OTc2" -X POST -d '{
     "html": "<h2>Hello world!!</h2>",
     "filename": "helloworld"
-}' http://127.0.0.1:8080/api/nucleus-converter/v1/html-to-pdf
+}' http://nucleus.gooru.org/api/nucleus-converter/v1/html-to-pdf
 ```
 
 ###Convert raw HTML to EXCEL
@@ -92,5 +92,5 @@ Authorization: Token MTQ1NTc5OTI3NDU0Mzphbm9ueW1vdXM6YmE5NTZhOTctYWUxNS0xMWU1LWE
 curl -i  -H "Content-Type: application/json" -H "Authorization: Token MTQ1NTc5OTI3NDU0Mzphbm9ueW1vdXM6YmE5NTZhOTctYWUxNS0xMWU1LWEzMDItZjhhOTYzMDY1OTc2" -X POST -d '{
     "html": "<html><body><table border=1><tr><th>Name</th><th>Date of birth</th></tr><tr><td>Gooru</td><td>11/12/1987</td></tr></table></body>",
     "filename": "student"
-  }' http://127.0.0.1:8080/api/nucleus-converter/v1/html-to-excel
+  }' http://nucleus.gooru.org/api/nucleus-converter/v1/html-to-excel
 ```

@@ -12,5 +12,5 @@
   "s3.config.file.location":"/opt/nucleus/conf/s3-converter-config.properties",
   "s3.host":"s3-us-west-1.amazonaws.com",
   "s3.report.cdn.url": "//test-content-bucket01.s3-us-west-1.amazonaws.com/",
-  "verticles.deploy.list": ["org.gooru.converter.bootstrap.AuthVerticle", "org.gooru.converter.bootstrap.ConverterVerticle"]
+  "verticles.deploy.list": ["org.gooru.nucleus.converter.bootstrap.AuthVerticle", "org.gooru.nucleus.converter.bootstrap.ConverterVerticle"]
 }
