@@ -31,6 +31,7 @@ ext {
     redisVersion = '2.8.0'
     apachepoiVersion = '3.12'
     jetS3Version = '0.9.4'
+    jsoupVersion = '1.7.2'
 }
 
 version = "0.1-snapshot"
@@ -51,15 +52,17 @@ dependencies {
     compile "io.vertx:vertx-hazelcast:${vertxVersion}"
     compile "io.vertx:vertx-dropwizard-metrics:${vertxVersion}"
     compile "io.vertx:vertx-web:${vertxVersion}"
-    compile "redis.clients:jedis:${redisVersion}"
-    compile "org.apache.poi:poi-ooxml-schemas:${apachepoiVersion}"
-    compile "org.apache.poi:poi-ooxml:${apachepoiVersion}"
-    compile "org.apache.poi:poi:${apachepoiVersion}"
-    compile "org.jsoup:jsoup:1.7.2"
+    compile "io.vertx:vertx-codegen:${vertxVersion}"
     
 
     // Other dependencies
     compile "ch.qos.logback:logback-classic:${logbackVersion}"
+    compile "redis.clients:jedis:${redisVersion}"
+    compile "org.apache.poi:poi-ooxml-schemas:${apachepoiVersion}"
+    compile "org.apache.poi:poi-ooxml:${apachepoiVersion}"
+    compile "org.apache.poi:poi:${apachepoiVersion}"
+    compile "org.jsoup:jsoup:${jsoupVersion}"
+    
 
     // Test dependencies
     testCompile "junit:junit:${junitVersion}"
