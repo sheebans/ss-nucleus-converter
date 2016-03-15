@@ -66,11 +66,7 @@ class ConvertHtmlToExcelExecutor implements Executor {
     if (filename == null || (filename != null && filename.isEmpty())) {
       filename = String.valueOf(System.currentTimeMillis());
     } else {
-      filename = InternalHelper.replaceSpecialCharWithUnderscore(filename);
-      File file = new File(fileLocation + filename + HelperConstants.FILE_EX_XLSX);
-      if (file.exists()) {
-        filename = filename + HelperConstants.HYPEN + System.currentTimeMillis();
-      }
+      filename = InternalHelper.replaceSpecialCharWithUnderscore(filename) + HelperConstants.HYPEN + System.currentTimeMillis();
     }
     final String filePath = fileLocation + filename + HelperConstants.FILE_EX_XLSX;
     final String file = convertHtmlToExcel(htmlContent, filePath);
