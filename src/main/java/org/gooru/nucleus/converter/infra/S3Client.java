@@ -4,15 +4,12 @@ import io.vertx.core.Context;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Properties;
 
 import org.gooru.nucleus.converter.bootstrap.startup.Initializer;
-import org.gooru.nucleus.converter.constants.HelperConstants;
+import org.gooru.nucleus.converter.constants.ConfigConstants;
 import org.jets3t.service.impl.rest.httpclient.RestS3Service;
 import org.jets3t.service.model.S3Object;
 import org.jets3t.service.security.AWSCredentials;
@@ -23,8 +20,7 @@ public final class S3Client implements Initializer {
 
   private static final Logger LOG = LoggerFactory.getLogger(S3Client.class);
   private static final Logger S3_LOG = LoggerFactory.getLogger("log.s3");
-
-  private Properties props;
+  private JsonObject config;
   protected Context context;
   private RestS3Service restS3Service;
   private static final String FILE_NAME = "filename";
@@ -32,8 +28,9 @@ public final class S3Client implements Initializer {
   public void initializeComponent(Vertx vertx, JsonObject config) {
     synchronized (Holder.INSTANCE) {
       try {
-        setS3Config(config.getString(HelperConstants.S3_CONFIG_FILE_LOCATION));
-        AWSCredentials awsCredentials = new AWSCredentials(getS3Config(HelperConstants.S3_ACCESS_KEY), getS3Config(HelperConstants.S3_SECRET));
+        this.config = config.getJsonObject(ConfigConstants.S3_CONFIG);
+        AWSCredentials awsCredentials =
+            new AWSCredentials(this.config.getString(ConfigConstants.S3_ACCESS_KEY), this.config.getString(ConfigConstants.S3_SECRET));
         restS3Service = new RestS3Service(awsCredentials);
       } catch (Exception e) {
         LOG.error("S3 rest service start failed ! ", e);
@@ -41,25 +38,11 @@ public final class S3Client implements Initializer {
     }
   }
 
-  private void setS3Config(String fileLocation) {
-    try {
-      props = new Properties();
-      FileInputStream is = new FileInputStream(new File(fileLocation));
-      props.load(is);
-      LOG.debug("S3 config values loaded");
-    } catch (Exception e) {
-      LOG.error("Failed to load S3 config values ", e);
-    }
-  }
 
-  private String getS3Config(String key) {
-    return props.getProperty(key);
-  }
-
-  public boolean  uploadFileS3(String fileLocation, String filename, String s3BucketKey) {
+  public boolean  uploadFileS3(final String fileLocation, final String filename, final String s3BucketKey) {
     boolean isUploaded = false;
     try {
-      final String s3Bucket = getS3Config(s3BucketKey);
+      final String s3Bucket = this.config.getString(s3BucketKey);
       Path path = Paths.get(fileLocation + filename);
       byte[] data = Files.readAllBytes(path);
 

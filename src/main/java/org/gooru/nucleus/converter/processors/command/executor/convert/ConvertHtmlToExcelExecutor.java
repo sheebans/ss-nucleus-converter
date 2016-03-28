@@ -18,6 +18,7 @@ import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.gooru.nucleus.converter.constants.ConfigConstants;
 import org.gooru.nucleus.converter.constants.HelperConstants;
 import org.gooru.nucleus.converter.constants.MessageCodeConstants;
 import org.gooru.nucleus.converter.infra.ConfigRegistry;
@@ -73,7 +74,7 @@ class ConvertHtmlToExcelExecutor implements Executor {
     if (file == null) {
       ServerValidatorUtility.throwASInternalServerError(ServerValidatorUtility.generateMessage(MessageCodeConstants.CVT004));
     }
-    boolean isUploaded = s3Client.uploadFileS3(fileLocation, filename + HelperConstants.FILE_EX_XLSX, HelperConstants.S3_REPORT_BUCKET_NAME);
+    boolean isUploaded = s3Client.uploadFileS3(fileLocation, filename + HelperConstants.FILE_EX_XLSX, ConfigConstants.S3_REPORT_BUCKET_NAME);
     if (!isUploaded) {
       ServerValidatorUtility.throwASInternalServerError(ServerValidatorUtility.generateMessage(MessageCodeConstants.CVT005));
     }

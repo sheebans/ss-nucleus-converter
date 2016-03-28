@@ -5,6 +5,7 @@ import io.vertx.core.json.JsonObject;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import org.gooru.nucleus.converter.constants.ConfigConstants;
 import org.gooru.nucleus.converter.constants.HelperConstants;
 import org.gooru.nucleus.converter.constants.MessageCodeConstants;
 import org.gooru.nucleus.converter.infra.ConfigRegistry;
@@ -57,7 +58,7 @@ class ConvertHtmlToPdfExecutor implements Executor {
     convertHtmlToPdf(htmlFilename, fileLocation + filename + HelperConstants.FILE_EX_PDF, 0);
     File file = new File(htmlFilename);
     file.delete();
-    boolean isUploaded = s3Client.uploadFileS3(fileLocation, filename + HelperConstants.FILE_EX_PDF, HelperConstants.S3_REPORT_BUCKET_NAME);
+    boolean isUploaded = s3Client.uploadFileS3(fileLocation, filename + HelperConstants.FILE_EX_PDF, ConfigConstants.S3_REPORT_BUCKET_NAME);
     if (!isUploaded) {
       ServerValidatorUtility.throwASInternalServerError(ServerValidatorUtility.generateMessage(MessageCodeConstants.CVT005));
     }

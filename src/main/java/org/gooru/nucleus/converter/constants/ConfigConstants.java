@@ -13,6 +13,13 @@ public class ConfigConstants {
   public static final String METRICS_PERIODICITY = "metrics.periodicity.seconds";
   public static final String MBUS_TIMEOUT = "message.bus.send.timeout.milliseconds";
   public static final String MAX_REQ_BODY_SIZE = "request.body.size.max.mb";
+  public static final String S3_ACCESS_KEY = "s3.access.key";
+  public static final String S3_SECRET = "s3.secret";
+  public static final String S3_REPORT_BUCKET_NAME = "s3.report.bucket.name";
+  public static final String S3_CONFIG_FILE_LOCATION = "s3.config.file.location";
+  public static final String S3_REPORT_CDN_URL = "s3.report.cdn.url";
+  public static final String S3_CONFIG = "s3.config";
+
 
   private ConfigConstants() {
     throw new AssertionError();
