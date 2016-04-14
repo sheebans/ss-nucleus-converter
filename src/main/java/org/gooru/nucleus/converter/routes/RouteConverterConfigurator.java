@@ -19,31 +19,33 @@ import org.slf4j.LoggerFactory;
 
 class RouteConverterConfigurator implements RouteConfigurator {
 
-  private static final Logger LOG = LoggerFactory.getLogger("org.gooru.nucleus.converter.bootstrap.ServerVerticle");
+    private static final Logger LOG = LoggerFactory.getLogger("org.gooru.nucleus.converter.bootstrap.ServerVerticle");
 
-  private EventBus eb = null;
-  private long mbusTimeout;
+    private EventBus eb = null;
+    private long mbusTimeout;
 
-  @Override
-  public void configureRoutes(Vertx vertx, Router router, JsonObject config) {
-    eb = vertx.eventBus();
-    mbusTimeout = config.getLong(ConfigConstants.MBUS_TIMEOUT, RouteConstants.DEFAULT_TIMEOUT);
-    router.post(RouteConstants.EP_NUCLUES_CONVERTER_HTML_TO_PDF).handler(this::convertHtmlToPdf);
-    router.post(RouteConstants.EP_NUCLUES_CONVERTER_HTML_TO_EXCEL).handler(this::convertHtmlToExcel);
-  }
+    @Override
+    public void configureRoutes(Vertx vertx, Router router, JsonObject config) {
+        eb = vertx.eventBus();
+        mbusTimeout = config.getLong(ConfigConstants.MBUS_TIMEOUT, RouteConstants.DEFAULT_TIMEOUT);
+        router.post(RouteConstants.EP_NUCLUES_CONVERTER_HTML_TO_PDF).handler(this::convertHtmlToPdf);
+        router.post(RouteConstants.EP_NUCLUES_CONVERTER_HTML_TO_EXCEL).handler(this::convertHtmlToExcel);
+    }
 
-  private void convertHtmlToPdf(RoutingContext routingContext) {
-    final DeliveryOptions options =
-        new DeliveryOptions().setSendTimeout(mbusTimeout).addHeader(MessageConstants.MSG_HEADER_OP, CommandConstants.CONVERTER_HTML_TO_PDF_CONVERT);
-    eb.send(MessagebusEndpoints.MBEP_CONVERTER, RouteRequestUtility.getBodyForMessage(routingContext), options,
-        reply -> RouteResponseUtility.responseHandler(routingContext, reply, LOG));
-  }
+    private void convertHtmlToPdf(RoutingContext routingContext) {
+        final DeliveryOptions options =
+            new DeliveryOptions().setSendTimeout(mbusTimeout).addHeader(MessageConstants.MSG_HEADER_OP,
+                CommandConstants.CONVERTER_HTML_TO_PDF_CONVERT);
+        eb.send(MessagebusEndpoints.MBEP_CONVERTER, RouteRequestUtility.getBodyForMessage(routingContext), options,
+            reply -> RouteResponseUtility.responseHandler(routingContext, reply, LOG));
+    }
 
-  private void convertHtmlToExcel(RoutingContext routingContext) {
-    final DeliveryOptions options =
-        new DeliveryOptions().setSendTimeout(mbusTimeout).addHeader(MessageConstants.MSG_HEADER_OP, CommandConstants.CONVERTER_HTML_TO_EXCEL_CONVERT);
-    eb.send(MessagebusEndpoints.MBEP_CONVERTER, RouteRequestUtility.getBodyForMessage(routingContext), options,
-        reply -> RouteResponseUtility.responseHandler(routingContext, reply, LOG));
-  }
+    private void convertHtmlToExcel(RoutingContext routingContext) {
+        final DeliveryOptions options =
+            new DeliveryOptions().setSendTimeout(mbusTimeout).addHeader(MessageConstants.MSG_HEADER_OP,
+                CommandConstants.CONVERTER_HTML_TO_EXCEL_CONVERT);
+        eb.send(MessagebusEndpoints.MBEP_CONVERTER, RouteRequestUtility.getBodyForMessage(routingContext), options,
+            reply -> RouteResponseUtility.responseHandler(routingContext, reply, LOG));
+    }
 
 }
