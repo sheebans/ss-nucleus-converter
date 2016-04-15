@@ -11,6 +11,7 @@ import org.gooru.nucleus.converter.responses.auth.transformers.ResponseTransform
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public class HttpServerResponseWriter implements ResponseWriter {
@@ -42,7 +43,7 @@ public class HttpServerResponseWriter implements ResponseWriter {
             ((transformer.transformedBody() != null) && (!transformer.transformedBody().isEmpty())) ? transformer
                 .transformedBody().toString() : null;
         if (responseBody != null) {
-            response.putHeader(HttpConstants.HEADER_CONTENT_LENGTH, Integer.toString(responseBody.length()));
+            response.putHeader(HttpConstants.HEADER_CONTENT_LENGTH, Integer.toString(responseBody.getBytes(StandardCharsets.UTF_8).length));
             response.end(responseBody);
         } else {
             response.end();
